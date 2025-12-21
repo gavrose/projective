@@ -158,28 +158,36 @@ document.addEventListener("DOMContentLoaded", ()=>{
     const startUpdateProjectBtn = document.getElementById("editProjectBtn")
     const projectDisplay = document.getElementById("projectDisplay");
     const updateProjectForm = document.getElementById("editProjectForm");
+    const proj_msg_space = document.getElementById("editProjMsg");
+
 
     async function handleUpdateProjectFormDisplay(){
         if (updateProjectForm.hasAttribute("hidden")) {
             updateProjectForm.removeAttribute("hidden");
             projectDisplay.style.display = "none";
             startUpdateProjectBtn.innerText = "Cancel Project Update";
+            proj_msg_space.innerText = "";
         } else {
-            projectDisplay.style.display = "block";
+            projectDisplay.style.display = "flex";
             updateProjectForm.setAttribute("hidden", "");
             startUpdateProjectBtn.innerText = "Edit Project";
+            proj_msg_space.innerText = "";
         }
     }
 
     async function handleUpdateProjectForm(){
         const title = document.getElementById("editProjTitle").value;
+        const link = document.getElementById("editProjLink").value;
+        const desc = document.getElementById("editProjDesc").value;
         const new_collaborator = document.getElementById("collaboratorSearch").value;
         const proj_id = document.getElementById("editProjID").value;
 
         const update_proj = {
             title,
             proj_id,
-            new_collaborator
+            desc,
+            link,
+            new_collaborator,
         }
         const url = `/api/update/project/${proj_id}`
         const response = await fetch(url, {
@@ -188,15 +196,36 @@ document.addEventListener("DOMContentLoaded", ()=>{
             body: JSON.stringify(update_proj)
         });
 
+        const data = await response.json();
+
         if(!response.ok || response.error){
-            msg_space.innerText = response.error
+            proj_msg_space.innerText = data.error
         } else {
             const projectTitleDisplay = document.getElementById("projTitleDisplay");
-            const data = await response.json();
+            const projectLinkDisplay = document.getElementById("projLinkDisplay");
+            const projectDescDisplay = document.getElementById("projDescDisplay");
+            const validPostersDisplay = document.getElementById("validPostersDisplay");
+
 
             updateProjectForm.setAttribute("hidden", "");
-            projectDisplay.style.display = "block";
+            projectDisplay.style.display = "flex";
             projectTitleDisplay.innerText = `${data.title}`;
+            projectLinkDisplay.href = `${data.link}`;
+            projectLinkDisplay.innerText = "Project Link";
+
+            projectDescDisplay.innerText = `${data.desc}`;
+            if (data.new_collaborator){
+                const newCollab = `${data.new_collaborator}`
+                const newSpan = document.createElement('span');
+                const newLink = document.createElement('a');
+                newLink.className = 'userLink';
+                newLink.href = `/${newCollab}/profile`;
+                newLink.textContent = `${newCollab}`;
+                newSpan.appendChild(newLink);
+                validPostersDisplay.appendChild(newSpan);
+            }
+            
+            proj_msg_space.innerText = "";
             startUpdateProjectBtn.innerText = "Edit Project"
         }
     }
@@ -211,8 +240,4 @@ document.addEventListener("DOMContentLoaded", ()=>{
             handleUpdateProjectForm();
         })
     }
-
-
-
-
 })

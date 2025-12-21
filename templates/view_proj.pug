@@ -12,12 +12,19 @@ block left-nav
     include left_nav
 
 block content
+    p#editProjMsg
     #projectDisplay
-        h1#projTitleDisplay #{project.title}
-        p#validPosters People in this project: 
-            each poster in valid_posters
-                span
-                    a.userLink(href=`/${poster.username}/profile`) #{poster.username}
+        #projDisplayContainer
+            h1#projTitleDisplay #{project.title}
+            if (project.proj_link)
+                a.projLink(href=`${project.proj_link}` id="projLinkDisplay") Project Link
+            if (project.description)
+                p#projDescDisplay #{project.description}
+        #projCollabDisplay
+            p#validPostersDisplay People in this project: 
+                each poster in valid_posters
+                    span
+                        a.userLink(href=`/${poster.username}/profile`) #{poster.username}
 
     br
     - var valid = false
@@ -29,8 +36,14 @@ block content
             .projectManage
                 button#editProjectBtn(type="button") Edit Project
                 form#editProjectForm(hidden)
-                    label(for="edit-title") New Title:
+                    label(for="editTitle") New Title:
                     input#editProjTitle(type="text" name="editTitle" value=project.title)
+                    br
+                    label(for="editDesc") Description:
+                    input#editProjDesc(type="text" name="editDesc" value=project.description)
+                    br
+                    label(for="editLink") Project Link:
+                    input#editProjLink(type="url" pattern="https://.*" placeholder='https://' name="editLink" value=project.proj_link)
                     br
                     br
                     label(for="collaboratorSearch") Add collaborator:
@@ -45,7 +58,7 @@ block content
                 form#deleteProjForm
                     input#deleteProjID(type='hidden' value=project.proj_id)
                     button#deleteProjBtn(type='submit') Delete Project
-            a.button(href=`/projects/${project.proj_id}/posts/new`) New Post
+            a.button(href=`/projects/${project.proj_id}/posts/new`) + New Post
     .postsList 
         if posts && posts.length 
             .post
@@ -59,7 +72,6 @@ block content
                             span Posted #{post.post_time.toLocaleDateString()} at #{post.post_time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
         else 
             span No posts yet.
-            br
     
 
 block footer
