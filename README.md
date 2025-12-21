@@ -33,17 +33,6 @@ Projective is a platform for managing **Projects** (similar to blogs) with colla
 
 ---
 
-## Admin Account for Testing
-- **Login Credentials:**
-  - **Email:** `test@umn.edu`
-  - **Password:** `test`
-- Admin privileges allow full control to **edit/delete all projects, posts, and comments**.
-- To promote a user to admin:
-  1. Navigate to `/<username>/profile`
-  2. Click the **"Promote to Admin"** button
-- Feel free to delete/modify any project except CSCI 4131 Final Project
-
-
 
 
 
