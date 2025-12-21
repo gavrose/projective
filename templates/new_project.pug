@@ -12,14 +12,11 @@ block left-nav
 
 block content
     h1#pageName New Project
-    .filter
-        form#newProjectForm
-            label(for='projTitleEntry') Title:
+    form#newProjectForm
+        label(for='projTitleEntry') Title:
             br
             input#projTitleEntry(type='text' name='projTitleEntry' placeholder='Title' maxlength='50')
-            br
-            br
-            label(for='projCatEntry') Select a Category:
+        label(for='projCatEntry') Select a Category:
             br
             select#projCatEntry(name='projCatEntry')
                 option(value='' disabled selected) Select Category
@@ -27,13 +24,13 @@ block content
                 option(value='') All Categories
                 each cat in categories
                     option(value=cat.category_id) #{cat.category_name}
+        label(for="projLinkEntry") Project Repo Link:
             br
+            input#projLinkEntry(type='url' name='projLinkEntry' pattern="https://.*" placeholder='https://')
+        label(for="projDescEntry") Description:
             br
-            label(for="projDescEntry") Description:
-            br
-            textarea#projDescEntry(name='projDescEntry' placeholder='Describe your project.')
-            br
-            input#newProjButton(type='submit' value='Create Project')
+            textarea#projDescEntry(name='projDescEntry' placeholder='Describe your project.' cols="50" maxlength=100)
+        button#newProjButton(type='submit') Create Project
 
 
 block footer

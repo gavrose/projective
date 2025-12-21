@@ -9,10 +9,12 @@ const newCommentBtn = document.getElementById('addCommentBtn');
 async function handleNewProj () {
     const title = document.getElementById('projTitleEntry').value;
     const cat_id = document.getElementById('projCatEntry').value;
+    const link = document.getElementById('projLinkEntry').value;
     const desc = document.getElementById('projDescEntry').value;
 
     const proj = {
         title: title,
+        link: link,
         cat_id: cat_id,
         description: desc,
     }

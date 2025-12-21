@@ -261,9 +261,10 @@ app.post("/api/new/proj", async (req,res) => {
     const title = req.body.title;
     const cat_id = req.body.cat_id;
     const desc = req.body.description;
+    const link = req.body.link;
 
 
-    const new_proj = await addProject(username, title, cat_id, desc);
+    const new_proj = await addProject(username, title, cat_id, desc, link);
     console.log(new_proj)
     if (new_proj){
         res.status(201).json({
@@ -418,25 +419,40 @@ app.post("/api/update/post/:post_id", async (req, res) => {
 
 app.post("/api/update/project/:proj_id", async (req, res) => {
     const proj_id = req.params.proj_id;
-    const {title, new_collaborator} = req.body;
+    const proj_to_update = (await getProject(proj_id))[0];
+    console.log(proj_to_update);
+
+    const {title, desc, link, new_collaborator} = req.body;
     const responseBody = {};
 
-    if (new_collaborator){
-        const collaboratorAdded = await addCollaborator(proj_id, new_collaborator);
-
-        if (!collaboratorAdded) {
-            return res.status(400).json({ error: "Failed to add collaborator" });
-        } else {
-            responseBody.new_collaborator = new_collaborator;
+    if (new_collaborator) {
+        const collab_user_id = (await getUserInfo(new_collaborator)).user_id
+        if (collab_user_id === proj_to_update.author_id) {
+            return res.status(400).json({error: "User is the project owner."});
         }
+        const current_collaborators = await getCollaborators(proj_id);
+
+        for (let i = 0; i < current_collaborators.length; i++) {
+            if (current_collaborators[i].username === new_collaborator) {
+                return res.status(400).json({error: "User is already a collaborator."});
+            }
+        }
+
+        const collaboratorAdded = await addCollaborator(proj_id, new_collaborator);
+        if (!collaboratorAdded) {
+            return res.status(400).json({ error: "Failed to add collaborator." });
+        }
+        responseBody.new_collaborator = new_collaborator;
     }
 
-    const updated = await updateProjectInfo(proj_id, title);
+    const updated = await updateProjectInfo(proj_id, title, desc, link);
     if (!updated) {
         return res.status(500).json({ error: "Project update failed" });
     }
 
     responseBody.title = title;
+    responseBody.desc = desc;
+    responseBody.link = link;
     
     return res.status(200).json(responseBody);
 });

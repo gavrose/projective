@@ -60,7 +60,7 @@ async function addUser(username, email, password) {
   return user.insertId;
 }
 
-async function addProject(username, title, category_id, description){
+async function addProject(username, title, category_id, description, proj_link){
   const [users] = await connPool.query(
     `SELECT user_id 
     FROM Users 
@@ -72,10 +72,10 @@ async function addProject(username, title, category_id, description){
 
   const [project] = await connPool.query(
     `
-    INSERT INTO Projects (author_id, category_id, title, description)
-    VALUES (?, ?, ?, ?)
+    INSERT INTO Projects (author_id, category_id, title, description, proj_link)
+    VALUES (?, ?, ?, ?, ?)
     `,
-    [user_id, category_id, title, description]
+    [user_id, category_id, title, description, proj_link]
   );
   return project.insertId;
 }
@@ -336,12 +336,12 @@ async function updatePostInfo(post_id, title, content) {
   }
 }
 
-async function updateProjectInfo(proj_id, title) {
+async function updateProjectInfo(proj_id, title, desc, link) {
   const [result] = await connPool.query(
     `UPDATE Projects
-    SET title=?
+    SET title=?, description=?, proj_link=?
     WHERE proj_id = ?`,
-    [title, proj_id]
+    [title, desc, link, proj_id]
     );
 
   if (result.affectedRows === 0) {
