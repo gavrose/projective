@@ -1,0 +1,25 @@
+{
+  "name": "hw05",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "config": "^4.1.1",
+    "cookie-parser": "^1.4.7",
+    "dotenv": "^17.2.3",
+    "express": "^5.1.0",
+    "jwt-simple": "^0.5.6",
+    "mysql2": "^3.15.3",
+    "node": "^25.2.0",
+    "pug": "^3.0.3"
+  }
+}

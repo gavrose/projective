@@ -1,0 +1,35 @@
+extends layout.pug 
+
+block scripts 
+    script(src="/js/auth.js" defer)
+
+block header 
+    include header
+
+block left-nav
+    include left_nav
+
+
+block content 
+    h1 Create Account
+    form#register-form(action='/api/user' method='POST')
+        username 
+            label(for='register-username') Username: 
+            input(type='text' id='register-username' name='register-username' placeholder='Username...' pattern='^[A-Za-z0-9_.]+$' autofocus=true) 
+            p No spaces or special characters other than _ and . are allowed.
+            br
+        email
+            label(for='register-email') Email: 
+            input(type='email' id='register-email' name='register-email' placeholder='Email')
+            br
+        password
+            label(for='register-password') Password: 
+            input(type='password' id='register-password' name='register-password' placeholder='Password')
+            br
+            label(for='confirm_password') Confirm Password: 
+            input(type='password' id='confirm-register-password' name='confirm-register-password' placeholder='Confirm Password')
+            br
+        button(type='submit') Create Account
+
+block footer 
+    include footer

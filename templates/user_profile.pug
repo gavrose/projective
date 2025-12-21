@@ -1,0 +1,93 @@
+extends layout.pug 
+
+block scripts 
+    script(src="/js/update.js" defer)
+    script(src="/js/delete.js" defer)
+
+
+
+block header 
+    include header
+
+
+block left-nav 
+    include left_nav
+
+block content
+    .profilePage
+        h1#page-name #{userProfile.username}'s Profile
+        p#profileMsg
+        if curr_user && curr_user.username === userProfile.username
+            #profileDisplay
+                p#roleDisplay Role: #{userProfile.role.toUpperCase()}
+                p#bioDisplay Bio: #{userProfile.bio || "No bio yet."}
+                p#emailDisplay Email: #{userProfile.email}
+
+            button#startUpdateBtn(type="button") Edit Profile
+            form#updateProfile(hidden)
+                label(for="update-username") New Username:
+                br
+                input#update-username(type="text" name="update-username" value=userProfile.username required)
+                br
+                br
+                label(for="update-email") Email:
+                br
+                input#update-email(type="email" name="update-email" value=userProfile.email required)
+                br
+                br
+                label(for="update-bio") Bio:
+                br
+                textarea#update-bio(name="update-bio") #{userProfile.bio}
+                br
+                br
+                input#user_id(name="user_id" value=`${curr_user.user_id}` hidden)
+                button(type="submit") Save Changes
+            manage-buttons
+                br
+                a.button(href=`/projects/new`) + New Project
+                br
+                form#deleteUserForm
+                    input#deleteUserID(type='hidden' value=userProfile.user_id)
+                    button#deleteUserBtn(type='submit') Delete Account
+
+        //- if current user viewing someone elses profile
+        else   
+            #profileDisplay
+                p#roleDisplay Role: #{userProfile.role.toUpperCase()}
+                p#bioDisplay Bio: #{userProfile.bio || "No bio yet."}
+            if curr_user && curr_user.role === 'admin'
+                .admin-controls
+                    if userProfile.role === "user"
+                        h3 Admin Actions
+                        form#deleteUserForm
+                            input#deleteUserID(type='hidden' value=userProfile.user_id)
+                            button#deleteUserBtn(type='submit') Delete User Account
+                        form#promoteUserForm
+                            input#promoteUserID(type='hidden' value=userProfile.user_id)
+                            button#promoteBtn(type='submit' ) Promote to Admin
+        .projectsList
+            if projects && projects.length
+                each project in projects
+                    .projectPreview(onclick=`window.location='/projects/${project.proj_id}'`)
+                        .projectHeader
+                            h3.projectTitle #{project.title}
+                            p.projectCategory &nbsp; #{project.category_name}
+                            p.projectOwner Owner: 
+                                a.userLink(href=`/${project.username}/profile`) #{project.username}
+                        p.projectDescription #{project.description}
+                        p.projectInfo 
+                            span Project created #{project.created_at.toLocaleDateString()} &nbsp;
+                            span ||
+                            span #{project.total_posts} posts
+                            span ||
+                            if project.collaborators && project.collaborators.length
+                                span Collaborators:
+                                each c in project.collaborators
+                                    span
+                                        a.userLink(href=`/${c.username}/profile`) #{c.username}
+                            else
+                                span No collaborators
+
+
+block footer
+    include footer

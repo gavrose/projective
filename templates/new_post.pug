@@ -1,0 +1,30 @@
+extends layout.pug 
+
+block scripts 
+    script(src="/js/new.js" defer)
+
+block header 
+    include header
+
+
+block left-nav 
+    include left_nav
+
+block content
+    h1#pageName New Post
+        h2#projName #{project.title}
+        form#newPostForm
+            input#postProjID(type="hidden" name="postProjID" value=`${project.proj_id}`)
+            label(for='postTitleEntry') Title:
+            br
+            input#postTitleEntry(type='text' name='postTitleEntry' placeholder='Title' maxlength='50')
+            br
+            br
+            textarea#postContentEntry(name='postContentEntry' placeholder='Write your post' maxlength='5000' rows=30 cols=100)
+            br
+            input#newPostBtn(type='submit' value='Create Post')
+
+
+block footer
+    include footer
+

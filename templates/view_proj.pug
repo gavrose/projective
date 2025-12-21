@@ -1,0 +1,67 @@
+extends layout.pug 
+
+block scripts
+    script(src="/js/update.js" defer)
+    script(src="/js/delete.js" defer)
+
+block header 
+    include header
+
+
+block left-nav 
+    include left_nav
+
+block content
+    #projectDisplay
+        h1#projTitleDisplay #{project.title}
+        p#validPosters People in this project: 
+            each poster in valid_posters
+                span
+                    a.userLink(href=`/${poster.username}/profile`) #{poster.username}
+
+    br
+    - var valid = false
+    - for (var i = 0; i < valid_posters.length; i++)
+        - if (curr_user && valid_posters[i].user_id == curr_user.user_id)
+            - valid = true
+    if (valid || (curr_user && curr_user.role ==='admin'))
+        .changeContent
+            .projectManage
+                button#editProjectBtn(type="button") Edit Project
+                form#editProjectForm(hidden)
+                    label(for="edit-title") New Title:
+                    input#editProjTitle(type="text" name="editTitle" value=project.title)
+                    br
+                    br
+                    label(for="collaboratorSearch") Add collaborator:
+                    input#collaboratorSearch(type="text" name="collaborator_username" list="usernames-list" placeholder="Search username..." autocomplete)
+
+                    datalist#usernames-list
+                        each user in usernames_list
+                            option(value=user.username)
+                    input#editProjID(name="proj_id" value=`${project.proj_id}` hidden)
+                    input#user_id(name="user_id" value=`${curr_user.user_id}` hidden)
+                    button(type="submit") Save Changes
+                form#deleteProjForm
+                    input#deleteProjID(type='hidden' value=project.proj_id)
+                    button#deleteProjBtn(type='submit') Delete Project
+            a.button(href=`/projects/${project.proj_id}/posts/new`) New Post
+    .postsList 
+        if posts && posts.length 
+            .post
+                each post in posts 
+                    .postPreview(onclick=`window.location='/projects/${project.proj_id}/posts/${post.post_id}'`) 
+                        .postHeader
+                            h3.postTitle #{post.title}
+                        p.postContent #{post.content}
+                        p.postInfo 
+                            a.userLink(href=`/${post.author_username}/profile`) #{post.author_username}
+                            span Posted #{post.post_time.toLocaleDateString()} at #{post.post_time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+        else 
+            span No posts yet.
+            br
+    
+
+block footer
+    include footer
+

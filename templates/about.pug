@@ -1,0 +1,41 @@
+extends layout.pug 
+
+block header 
+    include header
+
+
+block left-nav 
+    include left_nav
+
+block content 
+    .about
+        h1 About Projective
+        h2 Your next project is on the horizon.
+        p At Projective, we recognize the importance of developing side-projects, but finding ideas and motivation is difficult. Projective provides a collaborative space to develop your personal-project ideas, showcase your work, and connect with like-minded creators.
+        
+        .capabilities
+            h3 Projective Capabilities 
+            ul 
+                li Personal Journal to document your coding journey
+                li Search for ideas in our project repository
+                li Mark posts as private, public, or collaborators wanted
+
+        .mission
+            h2 Our Mission
+            p Our goal is to provide a hub where developers, designers, and creators can turn ideas into reality, share projects, and find collaborators.
+
+        .team
+            h2 The Team
+            .member
+                .person
+                    img.profilePic(src="/images/gavin_pfp.jpg" alt="Profile Picture")
+                    a(href="https://www.linkedin.com/in/gavin-rose-3449222aa" target="_blank").name Gavin R.
+            
+        .join
+            h2 Join Us
+            p Share, collaborate, and grow your projects with a community that’s as passionate about building as you are.
+            br
+            a.button(href= curr_user ? `/projects/new` : '/login') Start Projecting
+
+block footer 
+    include footer

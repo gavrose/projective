@@ -1,0 +1,30 @@
+
+extends layout.pug 
+block scripts 
+    script(src="/js/auth.js" defer)
+
+block header 
+    include header
+
+block left-nav
+    include left_nav
+
+
+block content 
+    form#login-form
+        email
+            label(for='login-email') Email: &nbsp;
+            input(type='email', id='login-email', name='login-email', placeholder='Email', autofocus=true)
+            br
+        password
+            label(for='login-password') Password: &nbsp;
+            input(type='password', id='login-password', name='login-password', placeholder='Password')
+            br
+        button(type='submit') Log In
+        register
+            p Not Registered?
+            a.button(href="/register") Create Account
+
+block footer 
+    include footer
+

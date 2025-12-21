@@ -1,0 +1,17 @@
+This project has been going well so far. I have been having fun figuring out how all the puzzle pieces fit together. I realized that I was attempting to add complex features when the base website isn't completed yet, so I refocused to the basic features. 
+
+It is even more time consuming than I expected. Now that I have completed other finals, I have more time to focus on this.
+
+Features to implement:
+- view posts
+- add comments on posts
+- view comments
+- make css look better
+- ability to edit projects/posts
+- ability to delete projects/posts/comments
+- admin page to view recent projects/posts/comments
+
+Potential features:
+- ability for projects to be private
+- images in posts
+- profile pictures --> would have to store in DB?

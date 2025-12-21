@@ -1,0 +1,23 @@
+doctype html
+html
+    head
+        meta(charset='UTF-8')
+        title #{title || "Projective"} 
+        link(rel="preconnect" href="https://fonts.googleapis.com")
+        link(rel="preconnect" href="https://fonts.gstatic.com", crossorigin)
+        link(rel="stylesheet" href="https://fonts.googleapis.com/css2?family=League+Gothic&family=Monoton&display=swap")
+        link(rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600;700&display=swap")
+        link(rel='stylesheet' href='/css/main.css')
+        block scripts
+
+    body
+        .outer-container
+            .header 
+                block header
+            .inner-container
+                .left-nav
+                    block left-nav 
+                .content
+                    block content
+            .footer 
+                block footer

@@ -1,0 +1,70 @@
+extends layout.pug 
+
+block scripts 
+    script(src="/js/new.js" defer)
+    script(src="/js/update.js" defer)
+    script(src="/js/delete.js" defer)
+
+block header 
+    include header
+
+
+block left-nav 
+    include left_nav
+
+block content
+    h1.projectTitle #{project.title}
+    br
+    #postDisplay
+        p#msg-space
+        h2#postTitleDisplay #{post.title}
+        p#postContentDisplay #{post.content}
+    if curr_user && (curr_user.username === post.author_username || curr_user.role === 'admin')
+        .changeContent
+            .postManage
+                button#editPostBtn(type="button") Edit Post
+                form#editPostForm(hidden)
+                    label(for="editPostTitle") New Title:
+                    input#editPostTitle(type="text" name="editPostTitle" value=post.title)
+                    br
+                    textarea#editPostContent(name='editPostContent' maxlength='5000' rows=30 cols=100) #{post.content}
+                    br
+                    input#editPostID(name="editPostID" value=`${post.post_id}` hidden)
+                    button(type="submit") Save Changes
+                form#deletePostForm
+                    input#deleteFromProjID(type='hidden' value=project.proj_id)
+                    input#deletePostID(type='hidden' value=post.post_id)
+                    button#deletePostBtn(type='submit') Delete Post
+    .commentSectionHeader
+        h2 Comments
+    .addCommentSection
+        button#addCommentBtn(type="button") Add Comment
+        form#addCommentForm(hidden)
+            label(for="commentContent") New Comment:
+            br
+            textarea#commentContent(name="commentContent" cols="50" rows="3" maxlength=240) 
+            br
+            input#proj_id(name="proj_id" value=project.proj_id hidden)
+            input#post_id(name="post_id" value=post.post_id hidden)
+            button(type="submit") Submit Comment
+    .commentsList 
+        if comments && comments.length 
+            each comment in comments 
+                .comment(id=`comment${comment.comment_id}`)
+                    span.commentInfo 
+                        .commentHeader
+                            a.userLink(href=`/${comment.author_username}/profile`) #{comment.author_username}
+                            | posted #{comment.created_at.toLocaleDateString()} at #{comment.created_at.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                        if curr_user && (curr_user.user_id === comment.author_id || curr_user.role === 'admin')
+                            form.deleteCommentForm
+                                input(type="hidden" name="comment_id" value=`${comment.comment_id}`)
+                                button.deleteCommentBtn(type="submit") Delete Comment
+                    p.commentContent #{comment.comment_text}
+        else 
+            span#noComments No comments yet.
+            br
+        
+
+block footer
+    include footer
+

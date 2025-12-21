@@ -1,0 +1,41 @@
+extends layout.pug 
+
+block scripts 
+    script(src="/js/new.js" defer)
+
+block header 
+    include header
+
+
+block left-nav 
+    include left_nav
+
+block content
+    h1#pageName New Project
+    .filter
+        form#newProjectForm
+            label(for='projTitleEntry') Title:
+            br
+            input#projTitleEntry(type='text' name='projTitleEntry' placeholder='Title' maxlength='50')
+            br
+            br
+            label(for='projCatEntry') Select a Category:
+            br
+            select#projCatEntry(name='projCatEntry')
+                option(value='' disabled selected) Select Category
+                option(value=0) No Category
+                option(value='') All Categories
+                each cat in categories
+                    option(value=cat.category_id) #{cat.category_name}
+            br
+            br
+            label(for="projDescEntry") Description:
+            br
+            textarea#projDescEntry(name='projDescEntry' placeholder='Describe your project.')
+            br
+            input#newProjButton(type='submit' value='Create Project')
+
+
+block footer
+    include footer
+

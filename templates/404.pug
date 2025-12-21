@@ -1,0 +1,16 @@
+//- https://html-to-pug.com/
+extends layout.pug 
+
+block content
+  h1 Error: 404
+  p Page not found
+  a#back-button.button(href='javascript:window.history.back();') Go Back
+
+block header
+  include header 
+
+block left-nav
+  include left_nav
+
+block footer
+    include footer

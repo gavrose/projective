@@ -1,0 +1,16 @@
+a.person(href= curr_user ? `/${curr_user.username}/profile` : '/login')
+    if curr_user
+        span.name #{curr_user.username}
+        img.profilePic(src='/images/goat.jpg' alt='Profile Picture')
+    else
+        span.name Guest
+        img.profilePic(src='/images/guest.jpg' alt='Guest User Picture')
+
+if userProjects && userProjects.length
+    br
+    h3#yourProjects &nbsp;Your Projects
+    each project in userProjects
+        a(href=`/projects/${project.proj_id}`) #{project.title}
+
+a(href= curr_user ? `/projects/new` : '/login') + New Project
+

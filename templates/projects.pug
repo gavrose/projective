@@ -1,0 +1,55 @@
+extends layout.pug 
+
+block header 
+    include header
+
+
+block left-nav 
+    include left_nav
+
+block content
+    h1#page-name Projects
+    #projectHeaderSection
+        a.button(href=`/projects/new` id='newProjectBtnFromProjects') + New Project
+        .filter
+            form#projectFilterForm(action='/projects' method='get' autocomplete)
+                input#usernameFilter(type='text' name='usernameFilter' placeholder='Filter by Username' value='' list='username-list')
+                select#categoryFilter(name='categoryFilter')
+                    option(value='' disabled selected) Select Category
+                    option(value='') All Categories
+                    each cat in categories
+                        option(value=cat.category_id) #{cat.category_name}
+
+                input#filterButton(type='submit' value='Apply Filters')
+            datalist#username-list
+                each u in usernames_list
+                    option(value=u.username)
+    //- https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/autocomplete
+    .projectsList
+        if projects && projects.length
+            each project in projects
+                .projectPreview(onclick=`window.location='/projects/${project.proj_id}'`)
+                    .projectHeader
+                        h3.projectTitle #{project.title} 
+                        p.projectCategory #{project.category_name}
+                        p.projectOwner Owner: 
+                            a.userLink(href=`/${project.username}/profile`) #{project.username}
+                    p.projectDescription #{project.description}
+                    p.projectInfo 
+                        span Project created #{project.created_at.toLocaleDateString()} &nbsp;
+                        span ||
+                        span #{project.total_posts} posts
+                        span ||
+                        if project.collaborators && project.collaborators.length
+                            span Collaborators:
+                            each c in project.collaborators
+                                span
+                                    a.userLink(href=`/${c.username}/profile`) #{c.username}
+                        else
+                            span No collaborators
+        else
+            p No projects found. 
+
+
+block footer
+    include footer

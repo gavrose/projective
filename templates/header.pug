@@ -1,0 +1,10 @@
+.header
+    .logo
+        img(src='/images/logo.png' alt='projective logo')
+    .headerLinks
+        a(href='/projects') PROJECTS
+        a(href='/about') ABOUT
+        if (!curr_user)
+            a(href='/login') LOGIN
+        else
+            a(href="/logout") LOGOUT
