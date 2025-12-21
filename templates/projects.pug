@@ -13,7 +13,7 @@ block content
         a.button(href=`/projects/new` id='newProjectBtnFromProjects') + New Project
         .filter
             form#projectFilterForm(action='/projects' method='get' autocomplete)
-                input#usernameFilter(type='text' name='usernameFilter' placeholder='Filter by Username' value='' list='username-list')
+                input#search(type='text' name='usernameFilter' placeholder='Filter by Username' value='' list='username-list')
                 select#categoryFilter(name='categoryFilter')
                     option(value='' disabled selected) Select Category
                     option(value='') All Categories
