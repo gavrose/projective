@@ -83,15 +83,6 @@ app.use(async (req, res, next) => {
 });
 
 
-function escape_html(s){
-    s = s.replace(/&/g, "&amp;")
-    s = s.replace(/"/g, "&quot;")
-    s = s.replace(/</g, "&lt;")
-    s = s.replace(/>/g, "&gt;")
-    s = s.replace(/'/g, "&#39;")
-    return s
-}
-
 
 app.get("/about", async (req, res) => {
     res.render("about", {
