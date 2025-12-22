@@ -11,22 +11,28 @@ block left-nav
 
 
 block content 
-    h1 Create Account
-    form#register-form(action='/api/user' method='POST')
+    h1#pageName Create Account
+    form#registerForm
         username 
             label(for='register-username') Username: 
-            input(type='text' id='register-username' name='register-username' placeholder='Username...' pattern='^[A-Za-z0-9_.]+$' autofocus=true) 
-            p No spaces or special characters other than _ and . are allowed.
             br
+            input(type='text' id='register-username' name='register-username' placeholder='Username...' pattern='^[A-Za-z0-9_.]+$' autofocus=true) 
+            //- p#patternNotice No spaces or special characters other than _ and . are allowed.
+            br
+        p#patternNotice No spaces or special characters other than _ and . are allowed in username.
         email
             label(for='register-email') Email: 
+            br
             input(type='email' id='register-email' name='register-email' placeholder='Email')
             br
         password
             label(for='register-password') Password: 
+            br
             input(type='password' id='register-password' name='register-password' placeholder='Password')
             br
+            br
             label(for='confirm_password') Confirm Password: 
+            br
             input(type='password' id='confirm-register-password' name='confirm-register-password' placeholder='Confirm Password')
             br
         button(type='submit') Create Account
