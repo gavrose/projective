@@ -11,7 +11,8 @@ block left-nav
 
 
 block content 
-    form#login-form
+    h1#pageName Log In
+    form#loginForm
         email
             label(for='login-email') Email: &nbsp;
             input(type='email', id='login-email', name='login-email', placeholder='Email', autofocus=true)
@@ -23,6 +24,7 @@ block content
         button(type='submit') Log In
         register
             p Not Registered?
+            br
             a.button(href="/register") Create Account
 
 block footer 

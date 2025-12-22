@@ -55,6 +55,35 @@ body {
     font-family: 'League Gothic', sans-serif;
 }
 
+#loginForm {
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    align-items: center;
+    border: 1px solid #dc6e00;
+    border-radius: 1rem;
+    gap: 1rem;
+    margin: 1rem;
+    padding: 2rem;
+}
+
+#registerForm {
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    align-items: center;
+    border: 1px solid #dc6e00;
+    border-radius: 1rem;
+    gap: 1rem;
+    margin: 1rem;
+    padding: 2rem;
+}
+
+p#patternNotice {
+    font-size: smaller;
+    color: rgb(128, 128, 128);
+}
+
 a.projLink {
     color: #f7d8a5;
     margin: 1rem;
