@@ -20,7 +20,7 @@ block content
                     each cat in categories
                         option(value=cat.category_id) #{cat.category_name}
 
-                input#filterButton(type='submit' value='Apply Filters')
+                input.button#filterButton(type='submit' value='Apply Filters')
             datalist#username-list
                 each u in usernames_list
                     option(value=u.username)

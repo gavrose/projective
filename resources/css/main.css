@@ -194,7 +194,6 @@ button:hover {
     height: 4rem;
     padding: 1rem;
     font-family: 'IBM Plex Mono', monospace;
-
 }
 
 
@@ -292,10 +291,21 @@ button:hover {
 }
 
 #filterButton {
-    padding: 1rem;
+    -webkit-appearance: none; 
+    -moz-appearance: none;    
+    appearance: none;
+    background-color: #dc6e00;
+    color: white;
     border-radius: 1rem;
-    color: rgb(7, 6, 31);
+    border: 1px inset #76613f;
 }
+
+#filterButton:hover {
+    background-color: #de954c;
+    border: 1px solid #f7d8a5;
+}
+
+
 
 .projectsList {
     display: flex;
