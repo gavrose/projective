@@ -55,7 +55,7 @@ body {
     font-family: 'League Gothic', sans-serif;
 }
 
-#loginForm {
+#login-form {
     display: flex;
     flex-direction: column;
     align-self: center;
@@ -67,7 +67,7 @@ body {
     padding: 2rem;
 }
 
-#registerForm {
+#register-form {
     display: flex;
     flex-direction: column;
     align-self: center;
