@@ -6,6 +6,7 @@ Projective is a server-rendered web app for creating, discovering, and collabora
 
 ---
 
+
 ## Tech stack & highlights
 
 - Node.js + Express — HTTP server and routing
@@ -67,8 +68,17 @@ The functions centralize SQL queries and error handling and return plain JS obje
 
 ---
 
-## Contact
+## What did I learn?
+- *Web development is a lengthy process* - To make things function - and look good - it requires extreme attention to detail.
+- *HTML/CSS vs. Framework* - This project utilize Pug templating for HTML which helped streamline the process a bit, but was still very time consuming. However, now that I have the fundamentals down, I am very interested in learning to use design frameworks like react to build more complex interactive programs.
+- *Data* - Managing the data and ensuring proper database structuring, development, and management is very difficult, however, I enjoyed this process. It taught me that it is important to fully flesh out an idea and understand its requirementes before you begin building the database. I missed a few key features and then had to modify the database after its creation to account for these missing or added features.
+- *Time Management* - This project also taught me how to use my time effectively. I did not have much time to complete this project, and was stressed out by having major surgery a week prior as well as other finals to manage. I realized that working on the project when I could - even in small segments of time - was very valuable. I also found myself thinking about the project and planning what I was going to do when I could work on it next. I will look to implement these sorts of ideas in my future projects, as well as life. As I have often found, getting started is the hard part. Once I get started on a project, I will often work much longer than I initially expected to.
+  
+---
 
 - Author: Gavin Rose
 - GitHub: https://github.com/gavrose
 - LinkedIn: https://www.linkedin.com/in/gavin-rose-3449222aa
+
+--- 
+**This project was part of a class at the University of Minnesota (CSCI 4131 - Internet Programming). The original project was to use our knowledge acquired throughout the class to build a blog. I wanted to challenge myself and eventually decided on the project documentation platform you see here.*
